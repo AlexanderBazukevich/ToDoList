@@ -1,0 +1,18 @@
+{
+  "name": "todolist",
+  "version": "1.0.0",
+  "description": "ToDoList application",
+  "main": "index.html",
+  "scripts": {
+    "build": "lessc src/styles.less dist/styles.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AlexanderBazukevich/ToDoList.git"
+  },
+  "author": "Alexander Bazukevich",
+  "license": "ISC",
+  "devDependencies": {
+    "less": "^3.11.1"
+  }
+}
