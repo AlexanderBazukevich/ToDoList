@@ -3,8 +3,9 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="dist/styles.css">
+    <link rel="stylesheet/less" type="text/css" href="./src/styles.less" />
     <link href="https://fonts.googleapis.com/css?family=Khula:300,400&display=swap" rel="stylesheet">
+    <script src="./node_modules/less/dist/less.min.js" ></script>
     <title>ToDoList</title>
 </head>
 <body>
@@ -23,11 +24,14 @@
                 <a href="#" class="menu__item">History</a>
             </div>
             <div class="list">
-                <input type="checkbox" class="list__item">
-                <input type="checkbox" class="list__item">
-                <input type="checkbox" class="list__item">
-                <input type="checkbox" class="list__item">
-                <input type="checkbox" class="list__item">
+                <div class="note">
+                    <span class="note__content"></span>
+                    <input class="note__check" type="checkbox">
+                </div>
+                <div class="note">
+                    <span class="note__content"></span>
+                    <input class="note__check" type="checkbox">
+                </div>
             </div>
         </div>
     </div>

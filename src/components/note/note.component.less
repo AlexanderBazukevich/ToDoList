@@ -1,0 +1,36 @@
+
+.note {
+    display: flex;
+    align-items: center;
+    height: 60px;
+    width: 90%;
+    margin: 10px auto;
+    box-shadow: 0 0 10px 2px rgba(106, 106, 106, 0.1);
+    border-radius: 10px;
+
+    &__content,
+    &__check {
+        display: block;
+        box-sizing: border-box;
+        margin: 0;
+    }
+
+    &__content {
+        height: 100%;
+        width: 90%;
+    }
+
+    &__check {
+        height: 30px;
+        width: 30px;
+        border: 1px dotted #0156d7;
+        border-radius: 50%;
+        outline: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+
+        &:checked {
+            background-color: #0156d7;
+        }
+    }
+}
