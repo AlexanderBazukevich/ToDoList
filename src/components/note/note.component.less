@@ -21,16 +21,47 @@
     }
 
     &__check {
+        position: relative;
         height: 30px;
         width: 30px;
-        border: 1px dotted #0156d7;
-        border-radius: 50%;
+        cursor: pointer;
+        border: 1px solid @gray;
+        border-radius: 10px;
+        background: #ffffff;
+        transition: background .3s, border-color .3s, box-shadow .2s;
         outline: none;
         -webkit-appearance: none;
         -moz-appearance: none;
 
-        &:checked {
-            background-color: #0156d7;
-        }
+    
+            &:after {
+                content: '';
+                display: block;
+                position: absolute;
+                left: 9px;
+                top: 4px;
+                width: 8px;
+                height: 14px;
+                border: 2px solid #ffffff;
+                border-top: 0;
+                border-left: 0;
+                transform: rotate(var(--r, 20deg));
+                transition: transform var(--d-t, .3s) var(--d-t-e, ease), opacity var(--d-o, .2s);
+            }
+
+            &:checked {
+                background: @deep-blue;
+                border-color: @deep-blue;
+                --d-o: .3s;
+                --d-t: .6s;
+                --d-t-e: cubic-bezier(.2, .85, .32, 1.2);
+                --r: 43deg;
+            }
+
+            &:hover {
+                &:not(:checked) {
+                    border-color: @deep-blue;
+                }
+            }
     }
 }
