@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet/less" type="text/css" href="./src/styles.less" />
+    <!-- <link rel="stylesheet" type="text/css" href="./dist/styles.css" /> -->
     <link href="https://fonts.googleapis.com/css?family=Khula:300,400&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./node_modules/less/dist/less.min.js" ></script>
@@ -12,28 +13,69 @@
 <body>
     <div class="application">
         <div class="header">
+            <!-- l-side -->
             <h1 class="header__title">ToDo List</h1>
+            <!-- r-side -->
         </div>
-        <div class="form">
-            <input class="form__input" type="text" placeholder="Add note">
-            <div class="form__submit"><i class="fas fa-plus"></i></div>
-        </div>
-        <div class="groups"></div>
+        <form>
+            <input class="field" type="text" placeholder="Add note">
+            <div class="submit"><i class="fas fa-plus"></i></div>
+            <div class="groups">
+                <label class="groups__item">
+                    <input class="groups__select" type="radio" name="group">
+                    <i class="fas fa-list-alt"></i>
+                    <span class="groups__title">Group Title</span>
+                </label>
+                <label class="groups__item">
+                    <input class="groups__select" type="radio" name="group">
+                    <i class="fas fa-list-alt"></i>
+                    <span class="groups__title">Group Title</span>
+                </label>
+                <label class="groups__item">
+                    <input class="groups__select" type="radio" name="group">
+                    <i class="fas fa-list-alt"></i>
+                    <span class="groups__title">Group Title</span>
+                </label>
+                <label class="groups__item">
+                    <input class="groups__select" type="radio" name="group">
+                    <i class="fas fa-list-alt"></i>
+                    <span class="groups__title">Group Title</span>
+                </label>
+            </div>
+        </form>
         <div class="content">
-            <div class="menu">
-                <a href="#" class="menu__item">Today</a>
-                <a href="#" class="menu__item">History</a>
+            <div class="tabs">
+                <label class="tabs__item">
+                    <input class="tabs__select" type="radio" name="tab">
+                    <span class="tabs__title">Today</span>
+                </label>
+                <label class="tabs__item">
+                    <input class="tabs__select" type="radio" name="tab">
+                    <span class="tabs__title">History</span>
+                </label>
             </div>
             <div class="list">
                 <div class="note">
-                    <span class="note__content"></span>
-                    <input class="note__check" type="checkbox">
+                    <span class="note__content">Note 1</span>
+                    <label class="note__check">
+                        <input class="note__selector" type="checkbox">
+                        <i class="fas fa-check-circle"></i>
+                    </label>
                 </div>
                 <div class="note">
-                    <span class="note__content"></span>
-                    <input class="note__check" type="checkbox">
+                    <span class="note__content">Note 2</span>
+                    <label class="note__check">
+                        <input class="note__selector" type="checkbox">
+                        <i class="fas fa-check-circle"></i>
+                    </label>
                 </div>
             </div>
         </div>
     </div>
 </body>
+<!-- <label>
+    <span class="group group__home">home group</span>
+    <span>SomeText</span>
+    <input type="checkbox">
+    <i class="fa fa-checkbox"></i>
+</label> -->

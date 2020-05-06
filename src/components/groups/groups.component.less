@@ -1,4 +1,40 @@
 .groups {
-    height: 30%;
-    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 150px;
+    width: 90%;
+    margin: auto;
+
+    &__item {
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 2rem;
+        color: #ffffff;
+    }
+
+    &__title {
+        font-size: 1rem;
+        max-width: min-content;
+    }
+
+    &__select {
+        display: none;
+
+        &:checked {
+            + i {
+                opacity: 1;
+                transition: opacity .05s ease-in;
+            }
+        }
+
+        &:not(checked) {
+            + i {
+                opacity: .8;
+                transition: opacity .05s ease-in;
+            }
+        }
+    }
 }

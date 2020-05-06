@@ -1,67 +1,48 @@
-
 .note {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     height: 60px;
     width: 90%;
     margin: 10px auto;
+    padding: 0 10px;;
     box-shadow: 0 0 10px 2px rgba(106, 106, 106, 0.1);
     border-radius: 10px;
 
-    &__content,
-    &__check {
-        display: block;
-        box-sizing: border-box;
-        margin: 0;
-    }
-
     &__content {
-        height: 100%;
-        width: 90%;
+        display: block;
+        margin: 0;
+        font-size: 1rem;
+        box-sizing: border-box;
     }
 
     &__check {
-        position: relative;
-        height: 30px;
-        width: 30px;
         cursor: pointer;
-        border: 1px solid @gray;
-        border-radius: 10px;
-        background: #ffffff;
-        transition: background .3s, border-color .3s, box-shadow .2s;
-        outline: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
+        color: @deep-blue;
+        font-size: 1.5rem;
 
-    
-            &:after {
-                content: '';
-                display: block;
-                position: absolute;
-                left: 9px;
-                top: 4px;
-                width: 8px;
-                height: 14px;
-                border: 2px solid #ffffff;
-                border-top: 0;
-                border-left: 0;
-                transform: rotate(var(--r, 20deg));
-                transition: transform var(--d-t, .3s) var(--d-t-e, ease), opacity var(--d-o, .2s);
-            }
+        // &:hover {
+        //     > i {
+        //         color: @blue; //TODO: add hover
+        //     }
+        // }
+    }
 
-            &:checked {
-                background: @deep-blue;
-                border-color: @deep-blue;
-                --d-o: .3s;
-                --d-t: .6s;
-                --d-t-e: cubic-bezier(.2, .85, .32, 1.2);
-                --r: 43deg;
-            }
+    &__selector {
+        display: none;
 
-            &:hover {
-                &:not(:checked) {
-                    border-color: @deep-blue;
-                }
+        &:checked {
+            + i {
+                opacity: 1;
+                transition: opacity .05s ease-in;
             }
+        }
+
+        &:not(checked) {
+            + i {
+                opacity: .2;
+                transition: opacity .05s ease-in;
+            }
+        }
     }
 }
