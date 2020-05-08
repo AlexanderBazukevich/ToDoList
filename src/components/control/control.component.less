@@ -1,0 +1,65 @@
+.control {
+
+    &__label {  
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+    }
+
+    &__icon{
+        cursor: pointer;
+        font-size: 2rem;
+        color: #ffffff;
+        transition: opacity .1s ease-in-out;
+    }
+
+    &__field {
+        flex: 1 1 auto;
+        margin: 0;
+        padding: 0 10px;
+        height: 40px;
+        width: calc(100% - 40px);
+        background-color: #0156d7;
+        color: #ffffff;
+        font-family: 'Gilroy-Light';
+        font-size: 1rem;
+        border: none;
+        border-radius: 10px;
+        box-sizing: border-box;
+        outline: none;
+
+        &_action_append {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+
+            ~ .button {
+                background-color: #0156d7;
+                color: #ffffff;
+
+                &:last-child {
+                    border-top-right-radius: 10px;
+                    border-bottom-right-radius: 10px;
+                }
+            }
+        }
+
+        &:checked {
+            + .control__icon {
+                opacity: 1;
+            }
+        }
+
+        &:not(checked) {
+            + .control__icon {
+                opacity: .5;
+            }
+        }
+    }
+
+    &__title {
+        align-self: center;
+        max-width: max-content;
+        color: #ffffff;
+    }
+}

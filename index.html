@@ -17,36 +17,49 @@
             <h1 class="header__title">ToDo List</h1>
             <!-- r-side -->
         </div>
-        <form>
-            <input class="field" type="text" placeholder="Add note">
-            <div class="submit"><i class="fas fa-plus"></i></div>
-            <div class="groups">
-                <label class="groups__item">
-                    <input class="groups__select" type="radio" name="group">
-                    <i class="fas fa-list-alt"></i>
-                    <span class="groups__title">Group Title</span>
-                </label>
-                <label class="groups__item">
-                    <input class="groups__select" type="radio" name="group">
-                    <i class="fas fa-list-alt"></i>
-                    <span class="groups__title">Group Title</span>
-                </label>
-                <label class="groups__item">
-                    <input class="groups__select" type="radio" name="group">
-                    <i class="fas fa-list-alt"></i>
-                    <span class="groups__title">Group Title</span>
-                </label>
-                <label class="groups__item">
-                    <input class="groups__select" type="radio" name="group">
-                    <i class="fas fa-list-alt"></i>
-                    <span class="groups__title">Group Title</span>
-                </label>
-            </div>
-        </form>
         <div class="content">
+            <form>
+                <div class="control">
+                    <label class="control__label">
+                        <input class="control__field control__field_action_append" type="text" placeholder="Add note">
+                        <button class="button" type="submit"><i class="fas fa-plus"></i></button>
+                    </label>
+                </div>
+                <div class="control-group">
+                    <div class="control-group__item">
+                        <div class="control">
+                            <label class="control__label">
+                                <input class="control__field" type="radio" name="group" hidden>
+                                <span class="control__icon"><i class="fas fa-list-alt"></i></span>
+                                <span class="control__title">Group Title</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="control-group__item">
+                        <div class="control">
+                            <label class="control__label">
+                                <input class="control__field" type="radio" name="group" hidden>
+                                <span class="control__icon"><i class="fas fa-list-alt"></i></span>
+                                <span class="control__title">Group Title</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="control-group__item">
+                        <div class="control">
+                            <label class="control__label">
+                                <input class="control__field" type="radio" name="group" hidden>
+                                <span class="control__icon"><i class="fas fa-list-alt"></i></span>
+                                <span class="control__title">Group Title</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="content content_main">
             <div class="tabs">
                 <label class="tabs__item">
-                    <input class="tabs__select" type="radio" name="tab">
+                    <input class="tabs__select" type="radio" name="tab" checked>
                     <span class="tabs__title">Today</span>
                 </label>
                 <label class="tabs__item">
@@ -54,24 +67,10 @@
                     <span class="tabs__title">History</span>
                 </label>
             </div>
-            <div class="list">
-                <div class="note">
-                    <span class="note__content">Note 1</span>
-                    <label class="note__check">
-                        <input class="note__selector" type="checkbox">
-                        <i class="fas fa-check-circle"></i>
-                    </label>
-                </div>
-                <div class="note">
-                    <span class="note__content">Note 2</span>
-                    <label class="note__check">
-                        <input class="note__selector" type="checkbox">
-                        <i class="fas fa-check-circle"></i>
-                    </label>
-                </div>
-            </div>
+            <div class="list"></div>
         </div>
     </div>
+    <script src="./src/todolist.js"></script>
 </body>
 <!-- <label>
     <span class="group group__home">home group</span>
