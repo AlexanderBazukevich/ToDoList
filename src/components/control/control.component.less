@@ -1,17 +1,30 @@
 .control {
+    display: flex;
 
     &__label {  
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
+        width: 100%;
         text-align: center;
     }
 
-    &__icon{
+    &__icon {
         cursor: pointer;
         font-size: 2rem;
-        color: #ffffff;
         transition: opacity .1s ease-in-out;
+
+        &_white {
+            color: #ffffff;
+        }
+
+        &_blue {
+            color: @deep-blue;
+        }
+
+        &_red {
+            color: #e03333;
+        }
     }
 
     &__field {
@@ -19,7 +32,6 @@
         margin: 0;
         padding: 0 10px;
         height: 40px;
-        width: calc(100% - 40px);
         background-color: #0156d7;
         color: #ffffff;
         font-family: 'Gilroy-Light';
