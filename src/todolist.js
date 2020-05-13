@@ -12,6 +12,25 @@ if (localStorage.getItem('todos')) {
     getCurrentNotesList(notesList, group);
 }
 
+if (localStorage.getItem('todos')) {
+    let labels = controlGroup.querySelectorAll('.control__label');
+
+    labels.forEach((item) => {
+        item.addEventListener('click', () => {
+            currentNotesList = [];
+            notesList = JSON.parse(localStorage.getItem('todos'));
+            let groupName = getSelectedGroupTitle();
+
+            if (item.lastElementChild.innerText == groupName) {
+                clearNotes(list);
+                showNotes(notesList, groupName);
+                getCurrentNotesList(notesList, groupName);
+            }
+        })
+    })
+}
+
+
 addForm.addEventListener('submit', (event) => {
 
     event.stopPropagation();
@@ -209,3 +228,5 @@ function mergeNotesLists() {
     console.log(notesList);
     console.log(currentNotesList);
 }
+
+//changed: checked notes keep save after page refresh; added list switching and target notes adding;
