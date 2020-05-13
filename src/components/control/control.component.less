@@ -11,6 +11,7 @@
 
     &__icon {
         cursor: pointer;
+        padding: 0 5px;
         font-size: 2rem;
         transition: opacity .1s ease-in-out;
 
@@ -30,7 +31,7 @@
     &__field {
         flex: 1 1 auto;
         margin: 0;
-        padding: 0 10px;
+        padding: 0 5px;
         height: 40px;
         background-color: #0156d7;
         color: #ffffff;
@@ -57,13 +58,15 @@
         }
 
         &:checked {
-            + .control__icon {
+            + .control__icon_blue,
+            + .control__icon_white {
                 opacity: 1;
             }
         }
 
         &:not(checked) {
-            + .control__icon {
+            + .control__icon_blue,
+            + .control__icon_white {
                 opacity: .5;
             }
         }

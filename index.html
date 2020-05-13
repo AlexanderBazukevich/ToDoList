@@ -3,11 +3,11 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <!-- <link rel="stylesheet/less" type="text/css" href="./src/styles.less" /> -->
-    <link rel="stylesheet" type="text/css" href="./dist/styles.css" />
+    <link rel="stylesheet/less" type="text/css" href="./src/styles.less" />
+    <!-- <link rel="stylesheet" type="text/css" href="./dist/styles.css" /> -->
     <link href="https://fonts.googleapis.com/css?family=Khula:300,400&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <script src="./node_modules/less/dist/less.min.js" ></script> -->
+    <script src="./node_modules/less/dist/less.min.js" ></script>
     <title>ToDoList</title>
 </head>
 <body>
@@ -29,18 +29,9 @@
                     <div class="control-group__item">
                         <div class="control">
                             <label class="control__label">
-                                <input class="control__field" type="radio" name="group" hidden>
-                                <span class="control__icon  control__icon_white"><i class="fas fa-list-alt"></i></span>
-                                <span class="control__title">Group Title</span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="control-group__item">
-                        <div class="control">
-                            <label class="control__label">
-                                <input class="control__field" type="radio" name="group" hidden>
-                                <span class="control__icon  control__icon_white"><i class="fas fa-list-alt"></i></span>
-                                <span class="control__title">Group Title</span>
+                                <input class="control__field" type="radio" name="group" checked hidden>
+                                <span class="control__icon control__icon_white"><i class="fas fa-list-alt"></i></span>
+                                <span class="control__title">First</span>
                             </label>
                         </div>
                     </div>
@@ -49,7 +40,16 @@
                             <label class="control__label">
                                 <input class="control__field" type="radio" name="group" hidden>
                                 <span class="control__icon control__icon_white"><i class="fas fa-list-alt"></i></span>
-                                <span class="control__title">Group Title</span>
+                                <span class="control__title">Second</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="control-group__item">
+                        <div class="control">
+                            <label class="control__label">
+                                <input class="control__field" type="radio" name="group" hidden>
+                                <span class="control__icon control__icon_white"><i class="fas fa-list-alt"></i></span>
+                                <span class="control__title">Third</span>
                             </label>
                         </div>
                     </div>
@@ -73,9 +73,3 @@
     </div>
     <script src="./src/todolist.js"></script>
 </body>
-<!-- <label>
-    <span class="group group__home">home group</span>
-    <span>SomeText</span>
-    <input type="checkbox">
-    <i class="fa fa-checkbox"></i>
-</label> -->

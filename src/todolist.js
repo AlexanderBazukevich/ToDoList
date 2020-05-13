@@ -1,24 +1,30 @@
 const addForm = document.querySelector('form');
 const addField = document.querySelector('.control__field');
 const list = document.querySelector('.list');
-let nodes = list.childNodes;
+const controlGroup = document.querySelector('.control-group');
 let notesList = [];
+let currentNotesList = [];
 
 if (localStorage.getItem('todos')) {
     notesList = JSON.parse(localStorage.getItem('todos'));
-    showNotes('todos');
+    let group = getSelectedGroupTitle();
+    showNotes(notesList, group);
+    getCurrentNotesList(notesList, group);
 }
 
 addForm.addEventListener('submit', (event) => {
+
     event.stopPropagation();
     event.preventDefault();
+
     let titleValue = addField.value;
+    let groupName = getSelectedGroupTitle();
 
     if (titleValue == '') {
         return false;
     }
 
-    addNote(notesList, titleValue);
+    addNewNote(currentNotesList, titleValue, groupName);
     addField.value = '';
 })
 
@@ -38,45 +44,35 @@ list.addEventListener('click', (event) => {
 
     if (e == labels[labels.length - 1].firstChild) {
         if (e.checked) {
-            let fragment = document.createDocumentFragment();
-            let check = createCheck('fas', 'fa-times-circle', 'red');
-            fragment.append(check);
-            control.prepend(fragment);
+            let newCheck = createCheck('fas', 'fa-times-circle', 'red');
+            control.prepend(newCheck);
+            checkNote(currentNotesList, index, true);
         } else {
             control.removeChild(control.firstChild);
+            checkNote(currentNotesList, index, false);
         }
     }
 
     if (e == labels[0].firstChild && labels.length > 1) {
-        deleteNode(notesList, list, index);
+        deleteNode(currentNotesList, list, index);
     }
 })
 
-function getParentNote(event) {
-    let e = event.target;
-
-    if (e.classList == 'list') {
-        return false;
-    }
-
-    while (e.classList != 'note') {
-        e = e.parentNode;
-    }
-
-    return e;
-}
-
-function addNote(data, title) {
+function addNewNote(data, title, group) {
     createNote(title);
     makeVisible();
 
-    data.push({title: title, group: "First", date:""});
-    localStorage.setItem('todos', JSON.stringify(data));
+    data.push({title: title, group: group, date:""});
+    mergeNotesLists();
+    localStorage.setItem('todos', JSON.stringify(notesList));
 }
 
 function deleteNode(data, elem, index) {
+    //delete from currentList and full list
+    notesList.splice(notesList.indexOf(data[index]), 1);
     data.splice(index, 1);
-    localStorage.setItem('todos', JSON.stringify(data));
+    mergeNotesLists();
+    localStorage.setItem('todos', JSON.stringify(notesList));
     
     let animation = elem.childNodes[index].animate([
         { opacity: '1' }, 
@@ -87,23 +83,28 @@ function deleteNode(data, elem, index) {
     }
 }
 
-function showNotes(name) {
-    data = JSON.parse(localStorage.getItem(name));
+function showNotes(data, group) {
 
     data.forEach( (item) => {
-        createNote(item.title);
+        if (item.group == group) {
+            createNote(item.title, item.checked);
+        }
     })
 }
 
-function createNote(content) {
+function createNote(content, checked) {
     let fragment = document.createDocumentFragment();
-    let check = createCheck('fas', 'fa-check-circle', 'blue');
+    let newCheck = createCheck('fas', 'fa-check-circle', 'blue', checked);
     let control = document.createElement('div');
     let note = document.createElement('div');
     let span = document.createElement('span');
 
     control.classList.add('control');
-    control.append(check);
+    control.append(newCheck);
+    if (checked == true) {
+        newCheck = createCheck('fas', 'fa-times-circle', 'red');
+        control.prepend(newCheck);
+    }
     span.classList.add('note__content');
     span.textContent = content;
     note.classList.add('note');
@@ -113,7 +114,7 @@ function createNote(content) {
     list.append(fragment);
 }
 
-function createCheck(a, b, color) {
+function createCheck(a, b, color, checked) {
     let fragment = document.createDocumentFragment();
     let i = document.createElement('i');
     let span = document.createElement('span');
@@ -125,6 +126,13 @@ function createCheck(a, b, color) {
     input.classList.add('control__field');
     input.setAttribute("type", "checkbox");
     input.setAttribute("hidden", "true");
+
+    if (checked == true) {
+        input.setAttribute("checked", checked);
+    } else {
+        input.removeAttribute("checked");
+    }
+
     label.classList.add('control__label');
     span.append(i);
     label.append(input);
@@ -132,6 +140,12 @@ function createCheck(a, b, color) {
     fragment.append(label);
 
     return fragment;
+}
+
+function checkNote(data, index, checked) {
+    data[index].checked = checked;
+    mergeNotesLists();
+    localStorage.setItem('todos', JSON.stringify(notesList));
 }
 
 function clearNotes(element) {
@@ -149,4 +163,49 @@ function makeVisible() {
         { opacity: '0' }, 
         { opacity: '1' }
     ], 300);
+}
+
+function getParentNote(event) {
+    let e = event.target;
+
+    if (e.classList == 'list') {
+        return false;
+    }
+
+    while (e.classList != 'note') {
+        e = e.parentNode;
+    }
+
+    return e;
+}
+
+function getSelectedGroupTitle() {
+
+    let notesGroupInputs = controlGroup.querySelectorAll('.control__label');
+    let groupName;
+
+    notesGroupInputs.forEach( (item) => {
+        if (item.firstElementChild.checked) {
+            groupName = item.lastElementChild.innerText;
+        }
+    })
+
+    return groupName;
+}
+
+function getCurrentNotesList(data, group) {
+    data.forEach( (item) => {
+        if (item.group == group) {
+            currentNotesList.push(item);
+        }
+    })
+}
+
+function mergeNotesLists() {
+    let mergedList = notesList.concat(currentNotesList);
+    notesList = mergedList.filter( (item, index) => {
+        return mergedList.indexOf(item) == index; 
+    })
+    console.log(notesList);
+    console.log(currentNotesList);
 }

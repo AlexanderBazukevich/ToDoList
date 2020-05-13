@@ -4,41 +4,16 @@
     justify-content: space-between;
     // height: 60px; TODO text overflow elipsis
     margin: 10px auto;
-    padding: 0 10px;
+    padding: 0 5px;
     box-shadow: 0 0 10px 2px rgba(106, 106, 106, 0.1);
     border-radius: 10px;
 
     &__content {
         width: 100%;
         font-size: 1rem;
-    }
 
-    &__check {
-        cursor: pointer;
-        color: @deep-blue;
-        font-size: 1.5rem;
-
-        // &:hover {
-        //     > i {
-        //         color: @blue; //TODO: add hover
-        //     }
-        // }
-    }
-
-    &__selector {
-
-        &:checked {
-            + i {
-                opacity: 1;
-                transition: opacity .05s ease-in;
-            }
-        }
-
-        &:not(checked) {
-            + i {
-                opacity: .2;
-                transition: opacity .05s ease-in;
-            }
+        &_checked {
+            text-decoration: line-through;
         }
     }
 }
