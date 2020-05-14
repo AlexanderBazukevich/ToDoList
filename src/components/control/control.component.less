@@ -12,11 +12,18 @@
     &__icon {
         cursor: pointer;
         padding: 0 5px;
-        font-size: 2rem;
+        font-size: 1.5rem;
         transition: opacity .1s ease-in-out;
 
         &_white {
+            position: relative;
             color: #ffffff;
+
+            > i {
+                padding: 10px;
+                background-color: rgba(255, 255, 255, 0.3);
+                border-radius: 13px;
+            }
         }
 
         &_blue {
@@ -48,7 +55,6 @@
 
             ~ .button {
                 background-color: #0156d7;
-                color: #ffffff;
 
                 &:last-child {
                     border-top-right-radius: 10px;
