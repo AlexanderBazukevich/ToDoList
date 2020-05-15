@@ -11,6 +11,7 @@
 
     &__icon {
         cursor: pointer;
+        position: relative;
         padding: 0 5px;
         font-size: 1.5rem;
         transition: opacity .1s ease-in-out;
@@ -23,6 +24,16 @@
                 padding: 10px;
                 background-color: rgba(255, 255, 255, 0.3);
                 border-radius: 13px;
+
+                + i {
+                    position: absolute;
+                    bottom: calc(100% + 5px);
+                    left: calc(50% - .5rem);
+                    border-radius: 0;
+                    padding: 0;
+                    background-color: initial;
+                    font-size: 1rem;
+                }
             }
         }
 

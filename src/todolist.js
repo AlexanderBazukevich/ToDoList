@@ -6,13 +6,12 @@ const controlGroup = document.querySelector('.control-group');
 let notesList = [];
 let groupsList = [];
 let currentNotesList = [];
-let currentGroupName;
+let currentGroupName = '';
 
 if (localStorage.getItem('todos')) {
     notesList = JSON.parse(localStorage.getItem('todos'));
-    let group = getSelectedGroupTitle();
-    showNotes(notesList, group);
-    getCurrentNotesList(notesList, group);
+    showNotes(notesList);
+    getCurrentNotesList(notesList);
 }
 
 if (localStorage.getItem('groups')) {
@@ -28,7 +27,48 @@ header.lastElementChild.addEventListener('click', () => {
     }
 })
 
-controlGroup.addEventListener('click', () => {
+addForm.addEventListener('submit', (event) => {
+
+    event.stopPropagation();
+    event.preventDefault();
+
+    let titleValue = addField.value;
+    let placeholder = addField.getAttribute('placeholder');
+    currentGroupName = getSelectedGroupTitle();
+
+    if (titleValue == '') {
+        return false;
+    }
+
+    if (placeholder == 'Add note') {
+        addNewNote(currentNotesList, titleValue, currentGroupName);
+        addField.value = '';
+    }
+
+    if (placeholder == 'Add group') {
+        addNewGroup(groupsList, titleValue);
+        addField.setAttribute('placeholder', 'Add note');
+        addField.value = '';
+    }
+})
+
+controlGroup.addEventListener('click', (event) => {
+    let e = event.target;
+    let icons = controlGroup.querySelectorAll('.control__icon');
+
+    icons.forEach( (item) => {
+        if (item.childNodes.length > 1) {
+            if (e == item.lastElementChild) {
+                let index = Array.prototype.indexOf.call(icons, item);
+                deleteGroup(groupsList, controlGroup, index);
+            }
+            item.removeChild(item.lastElementChild);
+        }
+    })
+
+    if (e.classList != 'control__field') {
+        return false;
+    }
 
     if (!localStorage.getItem('todos')) {
         return false;
@@ -38,38 +78,12 @@ controlGroup.addEventListener('click', () => {
         return false;
     }
 
-    if (currentGroupName) {
+    if (currentGroupName != '') {
         currentNotesList = [];
         notesList = JSON.parse(localStorage.getItem('todos'));
-        // currentGroupName = getSelectedGroupTitle();
         clearNotes(list);
         showNotes(notesList, currentGroupName);
         getCurrentNotesList(notesList, currentGroupName);
-    }
-})
-
-addForm.addEventListener('submit', (event) => {
-
-    event.stopPropagation();
-    event.preventDefault();
-
-    let titleValue = addField.value;
-    let holder = addField.getAttribute('placeholder');
-    currentGroupName = getSelectedGroupTitle();
-
-    if (titleValue == '') {
-        return false;
-    }
-
-    if (holder == 'Add note') {
-        addNewNote(currentNotesList, titleValue, currentGroupName);
-        addField.value = '';
-    }
-
-    if (holder == 'Add group') {
-        addNewGroup(groupsList, titleValue);
-        addField.setAttribute('placeholder', 'Add note');
-        addField.value = '';
     }
 })
 
@@ -108,7 +122,7 @@ list.addEventListener('click', (event) => {
 
 function addNewNote(data, title, group) {
     createNote(title);
-    makeVisible();
+    makeVisible(list, '.note');
 
     data.push({title: title, group: group, date:""});
     mergeNotesLists();
@@ -117,6 +131,7 @@ function addNewNote(data, title, group) {
 
 function addNewGroup(data, title) {
     createGroup(title);
+    makeVisible(controlGroup, '.control-group__item');
 
     data.push({title: title});
     localStorage.setItem('groups', JSON.stringify(data));
@@ -128,14 +143,22 @@ function deleteNode(data, elem, index) {
     data.splice(index, 1);
     mergeNotesLists();
     localStorage.setItem('todos', JSON.stringify(notesList));
-    
-    let animation = elem.childNodes[index].animate([
-        { opacity: '1' }, 
-        { opacity: '0' }
-    ], 300);
-    animation.onfinish = () => {
-        elem.removeChild(elem.childNodes[index]);
+    makeInvisible(elem, index);
+}
+
+function deleteGroup(data, elem, index) {
+
+    let i = currentNotesList.length - 1;
+
+    while (i >= 0) {
+        deleteNode(currentNotesList, list, i);
+        i--;
     }
+
+    data.splice(index, 1);
+    localStorage.setItem('groups', JSON.stringify(data));
+    makeInvisible(elem, index);
+    currentGroupName = '';
 }
 
 function showNotes(data, group) {
@@ -189,18 +212,19 @@ function createNote(content, checked) {
     let newCheck = createCheck('fas', 'fa-check-circle', 'blue', checked);
     let control = document.createElement('div');
     let note = document.createElement('div');
-    let span = document.createElement('span');
+    let noteContent = document.createElement('span');
 
     control.classList.add('control');
     control.append(newCheck);
     if (checked == true) {
         newCheck = createCheck('fas', 'fa-times-circle', 'red');
         control.prepend(newCheck);
+        noteContent.classList.add('note__content_checked');
     }
-    span.classList.add('note__content');
-    span.textContent = content;
+    noteContent.classList.add('note__content');
+    noteContent.textContent = content;
     note.classList.add('note');
-    note.append(span);
+    note.append(noteContent);
     note.append(control);
     fragment.append(note);
     list.append(fragment);
@@ -249,12 +273,22 @@ function clearNotes(element) {
     }
 }
 
-function makeVisible() {
-    let newNote = document.querySelectorAll('.note');
-    newNote[newNote.length - 1].animate([
+function makeVisible(parent, selector) {
+    let nodes = parent.querySelectorAll(selector);
+    nodes[nodes.length - 1].animate([
         { opacity: '0' }, 
         { opacity: '1' }
     ], 300);
+}
+
+function makeInvisible(elem, index) {
+    let animation = elem.childNodes[index].animate([
+        { opacity: '1' }, 
+        { opacity: '0' }
+    ], 300);
+    animation.onfinish = () => {
+        elem.removeChild(elem.childNodes[index]);
+    }
 }
 
 function getParentNote(event) {
@@ -272,11 +306,18 @@ function getParentNote(event) {
 }
 
 function getSelectedGroupTitle() {
-    let notesGroupInputs = controlGroup.querySelectorAll('.control__label');
+    let icon;
+    let i = document.createElement('i');
+    i.classList.add('fas', 'fa-times-circle');
+    let labels = controlGroup.querySelectorAll('.control__label');
 
-    notesGroupInputs.forEach( (item) => {
+    labels.forEach( (item) => {
         if (item.firstElementChild.checked) {
             currentGroupName = item.lastElementChild.innerText;
+            icon = item.querySelector('.control__icon');
+            if (icon.childNodes.length < 2) {
+                icon.append(i);
+            }
         }
     })
 
