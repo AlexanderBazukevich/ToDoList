@@ -1,0 +1,28 @@
+.modal {
+    visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 0 15px;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .7);
+    z-index: 1;
+    box-sizing: border-box;
+
+    &__body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__footer {
+        display: flex;
+        height: 100px;
+
+        > .button:first-child {
+            margin-left: auto;
+        }
+    }
+}

@@ -1,64 +1,50 @@
 .control {
     display: flex;
 
-    &__label {  
+    ~ .control {
+        margin-top: 1rem;
+    }
+
+    ~ .control-group {
+        margin-top: .5rem;
+    }
+
+    &__label {
+        cursor: pointer;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
         width: 100%;
-        text-align: center;
-    }
-
-    &__icon {
-        cursor: pointer;
-        position: relative;
-        padding: 0 5px;
-        font-size: 1.5rem;
-        transition: opacity .1s ease-in-out;
-
-        &_white {
-            position: relative;
-            color: #ffffff;
-
-            > i {
-                padding: 10px;
-                background-color: rgba(255, 255, 255, 0.3);
-                border-radius: 13px;
-
-                + i {
-                    position: absolute;
-                    bottom: calc(100% + 5px);
-                    left: calc(50% - .5rem);
-                    border-radius: 0;
-                    padding: 0;
-                    background-color: initial;
-                    font-size: 1rem;
-                }
-            }
-        }
-
-        &_blue {
-            color: @deep-blue;
-        }
-
-        &_red {
-            color: #e03333;
-        }
     }
 
     &__field {
         flex: 1 1 auto;
         margin: 0;
-        padding: 0 5px;
+        padding: 0 10px;
         height: 40px;
-        background-color: #0156d7;
-        color: #ffffff;
         font-family: 'Gilroy-Light';
         font-size: 1rem;
         border: none;
         border-radius: 10px;
         box-sizing: border-box;
         outline: none;
+
+        &_main {
+            color: #ffffff;
+            background-color: #0156d7;
+        }
+
+        &_minor {
+            color: #000000;
+            background-color: #ffffff;
+        }
+
+        &_hidden {
+            height: 0;
+            width: 0;
+            padding: 0;
+            opacity: 0;
+        }
 
         &_action_append {
             border-top-right-radius: 0;
@@ -75,23 +61,38 @@
         }
 
         &:checked {
-            + .control__icon_blue,
-            + .control__icon_white {
+            + .icon_big,
+            + .icon_note {
                 opacity: 1;
+            }
+
+            + .icon_modal {
+                background-color: rgba(255, 255, 255, 0.2);
+                border-radius: 10px;
             }
         }
 
         &:not(checked) {
-            + .control__icon_blue,
-            + .control__icon_white {
+            + .icon_big,
+            + .icon_note {
                 opacity: .5;
             }
         }
     }
 
     &__title {
-        align-self: center;
-        max-width: max-content;
+        width: 100%;
+        padding: 0 10px;
         color: #ffffff;
+        box-sizing: border-box;
+
+        + .control__field {
+            margin-top: .5rem;
+        }
+
+        &_small {
+            font-size: .7rem;
+            text-align: center;
+        }
     }
 }

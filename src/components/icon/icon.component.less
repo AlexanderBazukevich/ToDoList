@@ -1,0 +1,55 @@
+
+.icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity .2s ease-in-out, font-size .1s ease-out, background-color .2s ease-in-out;
+
+    &_main,
+    &_modal {
+        color: #ffffff;
+    }
+
+    &_modal,
+    &_note {
+        font-size: 1.3rem;
+    }
+
+    &_main {
+        font-size: 1.5rem;
+    }
+
+    &_note {
+        color: @deep-blue;
+    }
+
+    &_modal {
+        &:hover {
+            font-size: 1.5rem;
+        }
+    }
+
+    &_big {
+        height: 40px;
+        width: 40px;
+    }
+
+    &_small {
+        height: 35px;
+        width: 35px;
+    }
+
+    &_halo_main {
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 13px;
+    }
+
+    &_halo_note {
+        background-color: rgba(122, 175, 255, 0.2);
+        border-radius: 10px;
+    }
+
+    + .control__title {
+        margin-top: .2rem;
+    }
+}
