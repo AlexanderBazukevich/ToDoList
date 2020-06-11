@@ -1,4 +1,5 @@
-const template = `<span class="icon icon_note icon_small icon_halo_note"><i class="fas fa-briefcase"></i></span>
+const template = `<div class="note note_shadowed">
+    <span class="icon icon_note icon_small icon_halo_note"><i class="fas fa-{{group}}"></i></span>
     <div class="note__content">
         <span class="note__title">{{title}}</span>
         <span class="note__description">{{description}}</span>
@@ -10,28 +11,42 @@ const template = `<span class="icon icon_note icon_small icon_halo_note"><i clas
                 <i class="fas fa-check-circle"></i>
             </span>
         </label>
-    </div>`
+    </div>
+</div>`
 
 export class Note {
-    constructor(title, description, modifiers) {
-        this.title = title;
-        this.description = description;
-        this.modifiers = modifiers;
+
+    /**
+     * Note Constructor
+     * @param {{title: string, description: string, date: string, group: string}} data
+     */
+    constructor(data) {
+        this.data = data;
     }
 
-    render() {
+    /**
+     * Render 
+     * @param {any} params
+     * @param {boolean} asString
+     */
+    render(asString = false) {
         let localTemplate = template;
         let fragment = document.createDocumentFragment();
-        let note = document.createElement('div');
-        this.modifiers.forEach( item => {
-            note.classList.add(`${item}`);
-        });
-        localTemplate = localTemplate.replace('{{title}}', this.title);
-        localTemplate = localTemplate.replace('{{description}}', this.description);
-        note.innerHTML = localTemplate;
-        fragment.append(note);
+        let wrapper = document.createElement('div');
+        localTemplate = localTemplate.replace('{{title}}', this.data.title);
+        localTemplate = localTemplate.replace('{{description}}', this.data.description);
+        localTemplate = localTemplate.replace('{{group}}', this.data.group);
+        wrapper.innerHTML = localTemplate;
+        fragment.append(wrapper.firstChild);
+
+        if (asString == true) {
+            return fragment.firstChild.outerHTML;
+        }
 
         return fragment;
+    }
+
+    renderAsString() {
     }
 
     delete() {

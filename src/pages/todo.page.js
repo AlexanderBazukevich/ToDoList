@@ -11,27 +11,33 @@ class TodoPage {
 
     renderTodaysNotes() {
         NOTES_JSON.forEach( item => {
-            const note = new Note(item.title, item.description, ['note', 'note_shadowed']);
-            this.todaysNotesContainer.append(note.render())
+            const note = new Note(item);
+            this.todaysNotesContainer.append(note.render());
         })
     }
 
     renderUpcomingNotes() {
-        let currentDate;
         let fragment = document.createDocumentFragment();
+        let data = {
+            date: NOTES_JSON[0].date,
+            notes: [],
+        }
+
         NOTES_JSON.forEach( item => {
-            const note = new Note(item.title, item.description, ['note']);
-            const noteGroup = new NoteGroup(item.date);
-            let previousDate = currentDate;
-            currentDate = item.date;
-            if (currentDate != previousDate) {
-                fragment = noteGroup.render().firstChild;
-                fragment.append(note.render());
-            } else {
-                fragment.append(note.render());
+            const noteGroup = new NoteGroup(data);
+            if (data.date == item.date) {
+                data.notes.push(item);
+                return false;
             }
+            fragment = noteGroup.render();
             this.upcomingNotesContainer.append(fragment);
+            data.notes = [];
+            data.notes.push(item);
+            data.date = item.date;
         })
+        const noteGroup = new NoteGroup(data);
+        fragment = noteGroup.render();
+        this.upcomingNotesContainer.append(fragment);
     }
 }
 

@@ -1,18 +1,36 @@
-const template = `<span class="note-group__title">{{date}}</span>`
+import { Note } from "../note/note.component.js";
+
+const template = `<div class="note-group">
+        <span class="note-group__title">{{date}}</span>
+        {{notes}}
+    </div>`
 
 export class NoteGroup {
-    constructor(date) {
-        this.date = date;
+    /**
+     * Note Group Contstructor
+     * @param { {date: string, notes: Notes[]} } data 
+     */
+    constructor(data) {
+        this.data = data;
     }
 
     render() {
         let localTemplate = template;
         let fragment = document.createDocumentFragment();
-        let noteGroup = document.createElement('div');
-        noteGroup.classList.add('note-group');
-        localTemplate = localTemplate.replace('{{date}}', this.date);
-        noteGroup.innerHTML = localTemplate;
-        fragment.append(noteGroup);
+        let wrapper = document.createElement('div');
+
+        localTemplate = localTemplate.replace('{{date}}', this.data.date);
+
+        let notes = "";
+        this.data.notes.forEach( note => {
+            notes += (new Note(note)).render(true);
+        });
+
+        localTemplate = localTemplate.replace('{{notes}}', notes);
+
+        wrapper.innerHTML = localTemplate;
+
+        fragment.append(wrapper.firstChild);
 
         return fragment;
     }
