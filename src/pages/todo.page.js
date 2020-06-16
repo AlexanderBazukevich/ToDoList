@@ -22,7 +22,6 @@ class TodoPage {
             date: NOTES_JSON[0].date,
             notes: [],
         }
-
         NOTES_JSON.forEach( item => {
             const noteGroup = new NoteGroup(data);
             if (data.date == item.date) {
