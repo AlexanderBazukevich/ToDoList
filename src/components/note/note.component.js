@@ -29,7 +29,7 @@ export class Note {
      * @param {any} params
      * @param {boolean} asString
      */
-    render(asString = false) {
+    render() {
         let localTemplate = template;
         let fragment = document.createDocumentFragment();
         let wrapper = document.createElement('div');
@@ -39,14 +39,11 @@ export class Note {
         wrapper.innerHTML = localTemplate;
         fragment.append(wrapper.firstChild);
 
-        if (asString == true) {
-            return fragment.firstChild.outerHTML;
-        }
-
         return fragment;
     }
 
     renderAsString() {
+        return this.render().firstChild.outerHTML;
     }
 
     delete() {

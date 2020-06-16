@@ -23,7 +23,7 @@ export class NoteGroup {
 
         let notes = "";
         this.data.notes.forEach( note => {
-            notes += (new Note(note)).render(true);
+            notes += (new Note(note)).renderAsString();
         });
 
         localTemplate = localTemplate.replace('{{notes}}', notes);
