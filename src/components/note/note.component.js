@@ -50,30 +50,3 @@ export class Note {
 
     }
 }
-
-// let fragment = document.createDocumentFragment();
-// let note = document.createElement('div');
-// let icon = document.createElement('span');
-// let i = document.createElement('i');
-// let noteContent = document.createElement('div');
-// let noteTitle = document.createElement('span');
-// let noteDescription = document.createElement('span');
-
-// note.classList.add('note', 'note_shadowed');
-// icon.classList.add('icon', 'icon_note', 'icon_small', 'icon_halo_note');
-// i.classList.add('fas', 'fa-briefcase');
-// noteContent.classList.add('note__content');
-// noteTitle.classList.add('note__title');
-// noteDescription.classList.add('note__description');
-
-// noteTitle.textContent = this.title;
-// noteDescription.textContent = this.description;
-
-// noteContent.append(noteTitle);
-// noteContent.append(noteDescription);
-// icon.append(i);
-// note.append(icon);
-// note.append(noteContent);
-// fragment.append(note);
-
-// return fragment;

@@ -4725,7 +4725,7 @@ body {
   width: 100%;
   box-sizing: border-box;
   overflow: auto;
-  transition: margin 0.5s ease-out;
+  transition: margin 0.1s ease-in;
 }
 .tabs__item {
   position: relative;
@@ -4759,6 +4759,7 @@ body {
   border-radius: 3px;
   z-index: 1;
   transition: margin 0.1s ease-out;
+  pointer-events: none;
 }
 .tabs__item:first-child > .tabs__select:not(checked) + .tabs__title:after {
   margin-left: 100%;
