@@ -14,7 +14,7 @@ export const data = [
     {
         title: "gdg",
         description: "agega dg asga aga",
-        date: "2020-06-23T15:59:33.110Z",
+        date: "2020-06-26T15:59:33.110Z",
         group: "shopping-bag",
     },
     {
@@ -26,7 +26,7 @@ export const data = [
     {
         title: "werhewr",
         description: "er we asga aga",
-        date: "2020-06-23T15:59:33.110Z",
+        date: "2020-06-26T15:59:33.110Z",
         group: "shopping-bag",
     },
     {

@@ -1,3 +1,5 @@
+import { BaseComponent } from "../base/base.component.js";
+
 const template = `<div class="note note_shadowed">
     <span class="icon icon_note icon_small icon_halo_note"><i class="fas fa-{{group}}"></i></span>
     <div class="note__content">
@@ -14,39 +16,25 @@ const template = `<div class="note note_shadowed">
     </div>
 </div>`
 
-export class Note {
-
+export class Note extends BaseComponent {
     /**
      * Note Constructor
      * @param {{title: string, description: string, date: string, group: string}} data
      */
     constructor(data) {
-        this.data = data;
+        super(data);
+        this.data = {
+            '{{title}}' : data.title,
+            '{{description}}' : data.description,
+            '{{group}}' : data.group,
+        };
     }
 
-    /**
-     * Render 
-     * @param {any} params
-     * @param {boolean} asString
-     */
     render() {
-        let localTemplate = template;
-        let fragment = document.createDocumentFragment();
-        let wrapper = document.createElement('div');
-        localTemplate = localTemplate.replace('{{title}}', this.data.title);
-        localTemplate = localTemplate.replace('{{description}}', this.data.description);
-        localTemplate = localTemplate.replace('{{group}}', this.data.group);
-        wrapper.innerHTML = localTemplate;
-        fragment.append(wrapper.firstChild);
-
-        return fragment;
+        return super.render(template);
     }
 
     renderAsString() {
         return this.render().firstChild.outerHTML;
-    }
-
-    delete() {
-
     }
 }

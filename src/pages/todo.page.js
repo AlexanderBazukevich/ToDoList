@@ -6,8 +6,9 @@ import { data as NOTES_JSON } from "./../data/data.js";
 
 class TodoPage {
     constructor () {
-        this.todaysNotesContainer = document.querySelector("[data-dom=todays-todos]");
-        this.upcomingNotesContainer = document.querySelector("[data-dom=upcoming-todos]");
+        this.todaysNotesContainer;
+        this.upcomingNotesContainer;
+        this.tabs = document.querySelector("[data-dom=tabs]");
         this.tabsItems = document.querySelectorAll('.tabs__item');
 
         this.notesGroupsData = this.getTransformedNotesGroups(NOTES_JSON);
@@ -63,6 +64,7 @@ class TodoPage {
     }
 
     renderTodaysNotes() {
+        this.todaysNotesContainer = document.querySelector("[data-dom=today-todos]");
         this.todaysNotes.forEach( item => {
             const note = new Note(item);
             this.todaysNotesContainer.append(note.render());
@@ -70,23 +72,20 @@ class TodoPage {
     }
 
     renderUpcomingNotes() {
+        this.upcomingNotesContainer = document.querySelector("[data-dom=upcoming-todos]");
         this.notesGroupsData.forEach( (item) => {
             const noteGroup = new NoteGroup(item);
             this.upcomingNotesContainer.append(noteGroup.render());
         })
     }
 
-    showSelectedTab() {
-        this.tabsItems.forEach( item => {
-            item.addEventListener('click', () => {
-                const tab = new Tabs(this.todaysNotesContainer);
-                tab.swipeTabs();
-            })
-        })
+    renderTabs() {
+        const tab = new Tabs(['Today', 'Upcoming'], ['today-todos', 'upcoming-todos']);
+        this.tabs.append(tab.render());
     }
 }
 
 const todoPage = new TodoPage();
+todoPage.renderTabs();
 todoPage.renderTodaysNotes();
 todoPage.renderUpcomingNotes();
-todoPage.showSelectedTab();
