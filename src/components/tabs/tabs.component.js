@@ -1,48 +1,21 @@
 import { BaseComponent } from "../base/base.component.js";
 
-const tabItemTemplate = `<label class="tabs__item">
-    <input class="tabs__select" type="radio" name="tab" checked>
-    <span class="tabs__title">{{title}}</span>
-</label>`;
-const tabContentTemplate = `<div class="tabs__content content" data-dom="{{selector}}"></div>`;
 const template = `<div class="tabs">
-    {{tabs}}
+    [[tabItem as items]]
     <div class="tabs__slider">
-    {{content}}
+        [[tabContent as items]]
     </div>
 </div>`
 
 export class Tabs extends BaseComponent {
-    constructor(titles, selectors, data) {
+    /**
+     * 
+     * @param {items: {title: string, selector: string}[]} data 
+     */
+    constructor(data) {
         super(data);
-        this.titles = titles;
-        this.selectors = selectors;
-        this.tabItems;
-        // this.tabsItem = document.querySelector('.tabs__item');
-    }
-
-    render() {
-        this.data = {
-            '{{tabs}}' : this.renderTabsItems(),
-            '{{content}}' : this.renderTabsContent(),
-        }
-        return super.render(template);
-    }
-
-    renderTabsContent() {
-        let tabContent = '';
-        this.selectors.forEach( selector => {
-            tabContent += tabContentTemplate.replace('{{selector}}', selector);
-        });
-        return tabContent;
-    }
-
-    renderTabsItems() {
-        let tabItem = '';
-        this.titles.forEach( title => {
-            tabItem += tabItemTemplate.replace('{{title}}', title);
-        });
-        return tabItem;
+        this.tabItemComponent = TabItem;
+        this.tabContentComponent = TabContent;
     }
 
     // swipeTabs() {
@@ -73,3 +46,24 @@ export class Tabs extends BaseComponent {
     //     })
     // }
 }
+
+Tabs.prototype.template = template;
+
+class TabItem extends BaseComponent {
+    constructor(data) {
+        super(data)
+    }
+}
+
+TabItem.prototype.template = `<label class="tabs__item">
+    <input class="tabs__select" type="radio" name="tab">
+    <span class="tabs__title">{{title}}</span>
+</label>`
+
+class TabContent extends BaseComponent {
+    constructor(data) {
+        super(data)
+    }
+}
+
+TabContent.prototype.template = `<div class="tabs__content content" data-dom="{{selector}}-todos"></div>`

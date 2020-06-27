@@ -1,5 +1,4 @@
 import { BaseComponent } from "../base/base.component.js";
-
 const template = `<div class="note note_shadowed">
     <span class="icon icon_note icon_small icon_halo_note"><i class="fas fa-{{group}}"></i></span>
     <div class="note__content">
@@ -23,18 +22,21 @@ export class Note extends BaseComponent {
      */
     constructor(data) {
         super(data);
-        this.data = {
-            '{{title}}' : data.title,
-            '{{description}}' : data.description,
-            '{{group}}' : data.group,
-        };
     }
 
     render() {
-        return super.render(template);
+        const result = super.render();
+        result.firstChild.addEventListener('click', this.onClick)
+        return result;
     }
 
-    renderAsString() {
-        return this.render().firstChild.outerHTML;
+    onInit() {
+        this.conainer.addEventListener('click', this.onClick)
+    }
+
+    onClick = () => {
+        console.log(this)
     }
 }
+
+Note.prototype.template = template;

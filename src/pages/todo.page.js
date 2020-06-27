@@ -80,8 +80,8 @@ class TodoPage {
     }
 
     renderTabs() {
-        const tab = new Tabs(['Today', 'Upcoming'], ['today-todos', 'upcoming-todos']);
-        this.tabs.append(tab.render());
+        const tabs = new Tabs({ items: [{title: "Today", selector: "today"}, {title: "Upcoming", selector: "upcoming"}] });
+        this.tabs.append(tabs.render())
     }
 }
 

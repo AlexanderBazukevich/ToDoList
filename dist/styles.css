@@ -4748,27 +4748,28 @@ body {
   width: 100%;
   background-color: #f4f5fa;
 }
-.tabs__item:first-child > .tabs__select + .tabs__title:after {
+.tabs__item .tabs__select + .tabs__title:after {
   content: '';
   position: absolute;
   bottom: 0;
   display: block;
   height: 3px;
   width: 100%;
-  background-color: #0156d7;
+  background-color: transparent;
   border-radius: 3px;
   z-index: 1;
   transition: margin 0.1s ease-out;
   pointer-events: none;
 }
-.tabs__item:first-child > .tabs__select:not(checked) + .tabs__title:after {
+.tabs__item .tabs__select:not(checked) + .tabs__title:after {
   margin-left: 100%;
 }
-.tabs__item:first-child > .tabs__select:checked + .tabs__title {
+.tabs__item .tabs__select:checked + .tabs__title {
   color: #0063f5;
 }
-.tabs__item:first-child > .tabs__select:checked + .tabs__title:after {
+.tabs__item .tabs__select:checked + .tabs__title:after {
   margin-left: 0;
+  background-color: #0156d7;
 }
 .tabs__select {
   display: none;

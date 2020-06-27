@@ -3,7 +3,7 @@ import { BaseComponent } from "../base/base.component.js";
 
 const template = `<div class="note-group">
         <span class="note-group__title">{{date}}</span>
-        {{notes}}
+        [[note as notes]]
     </div>`
 
 export class NoteGroup extends BaseComponent {
@@ -13,19 +13,8 @@ export class NoteGroup extends BaseComponent {
      */
     constructor(data) {
         super(data);
-        this.data = {
-            '{{date}}' : data.date,
-            '{{notes}}' : data.notes,
-        };
-    }
-
-    render() {
-        let notes = "";
-        this.data['{{notes}}'].forEach( note => {
-            notes += (new Note(note)).renderAsString();
-        });
-        this.data["{{notes}}"] = notes;
-
-        return super.render(template);
+        this.noteComponent = Note;
     }
 }
+
+NoteGroup.prototype.template = template;

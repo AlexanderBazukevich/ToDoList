@@ -25,6 +25,9 @@
         box-sizing: border-box;
         overflow: auto;
         transition: margin .1s ease-in;
+        &:first-child {
+            // display: none;
+        }
     }
 
     &__item {
@@ -49,7 +52,7 @@
             background-color: @gray;
         }
 
-        &:first-child > .tabs__select {
+        .tabs__select {
             + .tabs__title {
                 &:after {
                     content: '';
@@ -58,7 +61,7 @@
                     display: block;
                     height: 3px;
                     width: 100%;
-                    background-color: #0156d7;
+                    background-color: transparent;
                     border-radius: 3px;
                     z-index: 1;
                     transition: margin .1s ease-out;
@@ -80,6 +83,7 @@
 
                     &:after {
                         margin-left: 0;
+                        background-color: #0156d7;
                     }
                 }
             }
