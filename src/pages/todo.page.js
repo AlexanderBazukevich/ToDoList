@@ -9,7 +9,6 @@ class TodoPage {
         this.todaysNotesContainer;
         this.upcomingNotesContainer;
         this.tabs = document.querySelector("[data-dom=tabs]");
-        this.tabsItems = document.querySelectorAll('.tabs__item');
 
         this.notesGroupsData = this.getTransformedNotesGroups(NOTES_JSON);
         this.todaysNotes = this.getTodaysNotes(NOTES_JSON);
@@ -80,8 +79,9 @@ class TodoPage {
     }
 
     renderTabs() {
-        const tabs = new Tabs({ items: [{title: "Today", selector: "today"}, {title: "Upcoming", selector: "upcoming"}] });
-        this.tabs.append(tabs.render())
+        const tab = new Tabs({ items: [{title: "Today", selector: "today"}, {title: "Upcoming", selector: "upcoming"}] });
+        this.tabs.innerHTML = tab.render().firstChild.innerHTML;
+        this.tabs.querySelector(".tabs__select").setAttribute("checked", "true");
     }
 }
 

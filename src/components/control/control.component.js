@@ -1,17 +1,18 @@
-export class Control {
-    constructor(title) {
-        this.title = title;
-    }
+import { BaseComponent } from "../base/base.component.js"
+import { Icon } from "../icon/icon.component.js"
 
-    render() {
-        
-    }
+const template = `<div class="control">
+    <label class="control__label">
+        <input class="control__field" type="checkbox" hidden="true">
+        [[icon]]
+    </label>
+</div>`
 
-    disable() {
-
-    }
-
-    getValue() {
-
+export class Control extends BaseComponent {
+    constructor(data) {
+        super(data);
+        this.iconComponent = Icon;
     }
 }
+
+Control.prototype.template = template;

@@ -18,7 +18,7 @@ export class BaseComponent {
 
         const components = this.grabComponents();
         components.forEach( component => {
-            if(this.isComponentForArray(component)) {
+            if (this.isComponentForArray(component)) {
                 const data = this.getComponentDataForArray(component);
                 const cpm = this.getComponentForArray(component);
                 let html = "";
@@ -47,7 +47,7 @@ export class BaseComponent {
 
     grabProperties() {
         const props = (this.template.match(/{{\w*}}/g) || []).join("").replace(/{{/g, "").split("}}");
-        props.length = props.length - 1;    
+        props.length = props.length - 1;
         return props;
     }
 
@@ -67,7 +67,7 @@ export class BaseComponent {
     }
 
     getComponentForArray(component) {
-        const name = component.split(" as ")[0];
-        return name;
+        const componentName = component.split(" as ")[0];
+        return componentName;
     }
 }

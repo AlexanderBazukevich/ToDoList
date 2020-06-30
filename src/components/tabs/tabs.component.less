@@ -68,33 +68,18 @@
                     pointer-events: none;
                 }
             }
-            
-            &:not(checked) {
-                + .tabs__title {
-                    &:after {
-                        margin-left: 100%;
-                    }
-                }
-            }
-
-            &:checked {
-                + .tabs__title {
-                    color: @deep-blue;
-
-                    &:after {
-                        margin-left: 0;
-                        background-color: #0156d7;
-                    }
-                }
-            }
         }
     }
 
     &__select {
         display: none;
         &:checked {
-            + .tabs__title {
-                color: @deep-blue;
+        + .tabs__title {
+            color: @deep-blue;
+
+                &:after {
+                    background-color: @deep-blue;
+                }
             }
         }
     }
