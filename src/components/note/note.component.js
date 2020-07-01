@@ -26,7 +26,7 @@ export class Note extends BaseComponent {
     // }
 
     // onInit() {
-    //     this.container.addEventListener('click', this.onClick)
+    //     this.conainer.addEventListener('click', this.onClick)
     // }
 
     // onClick = () => {

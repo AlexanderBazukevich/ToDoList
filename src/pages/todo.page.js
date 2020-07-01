@@ -82,6 +82,7 @@ class TodoPage {
         const tab = new Tabs({ items: [{title: "Today", selector: "today"}, {title: "Upcoming", selector: "upcoming"}] });
         this.tabs.innerHTML = tab.render().firstChild.innerHTML;
         this.tabs.querySelector(".tabs__select").setAttribute("checked", "true");
+        tab.onInit(this.tabs);
     }
 }
 

@@ -4748,7 +4748,10 @@ body {
   width: 100%;
   background-color: #f4f5fa;
 }
-.tabs__item .tabs__select + .tabs__title:after {
+.tabs__select {
+  display: none;
+}
+.tabs__select + .tabs__title:after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -4760,9 +4763,6 @@ body {
   z-index: 1;
   transition: margin 0.1s ease-out;
   pointer-events: none;
-}
-.tabs__select {
-  display: none;
 }
 .tabs__select:checked + .tabs__title {
   color: #0063f5;

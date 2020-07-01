@@ -18,33 +18,29 @@ export class Tabs extends BaseComponent {
         this.tabContentComponent = TabContent;
     }
 
-    // swipeTabs() {
-    //     let index = this.getSelectedTabIndex(event);
-    //     let swipeLength = index * this.container.offsetWidth;
-    //     this.container.style.marginLeft = `-${swipeLength}px`;
-    // }
+    onInit(container) {
+        container.addEventListener('click', this.onClick);
+    }
 
-    // getSelectedTabIndex(event) {
-    //     let e = event.target;
-        
-    //     if (e.className === this.tabsItem.className) {
-    //         return Array.prototype.indexOf.call(this.tabsItems, e);
-    //     }
+    onClick = () => {
+        let slider = document.querySelector('.tabs__slider');
+        let index = this.getSelectedTabIndex(event);
+        if (index !== false) {
+            let swipeLength = index * slider.offsetWidth;
+            slider.firstElementChild.style.marginLeft = `-${swipeLength}px`;
+        }
+    }
 
-    //     while (e.parentElement.className !== this.tabsItem.className) {
-    //         e = e.parentElement;
-    //     }
-    //     return Array.prototype.indexOf.call(this.tabsItems, e.parentElement);
-    // }
+    getSelectedTabIndex(event) {
+        let e = event.target;
+        let tabSelectors = document.querySelectorAll('.tabs__select');
 
-    // showSelectedTab() {
-    //     this.tabsItems.forEach( item => {
-    //         item.addEventListener('click', () => {
-    //             const tab = new Tabs(this.todaysNotesContainer);
-    //             tab.swipeTabs();
-    //         })
-    //     })
-    // }
+        if (e.className === 'tabs__select') {
+            return Array.prototype.indexOf.call(tabSelectors, e);
+        } else {
+            return false;
+        }
+    }
 }
 
 Tabs.prototype.template = template;

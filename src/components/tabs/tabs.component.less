@@ -51,28 +51,27 @@
             width: 100%;
             background-color: @gray;
         }
-
-        .tabs__select {
-            + .tabs__title {
-                &:after {
-                    content: '';
-                    position: absolute;
-                    bottom: 0;
-                    display: block;
-                    height: 3px;
-                    width: 100%;
-                    background-color: transparent;
-                    border-radius: 3px;
-                    z-index: 1;
-                    transition: margin .1s ease-out;
-                    pointer-events: none;
-                }
-            }
-        }
     }
 
     &__select {
         display: none;
+        
+        + .tabs__title {
+            &:after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                display: block;
+                height: 3px;
+                width: 100%;
+                background-color: transparent;
+                border-radius: 3px;
+                z-index: 1;
+                transition: margin .1s ease-out;
+                pointer-events: none;
+            }
+        }
+        
         &:checked {
         + .tabs__title {
             color: @deep-blue;
