@@ -3,6 +3,8 @@ export class BaseComponent {
         this.data = data;
     }
 
+    onInit() {}
+
     render() {
         let fragment = document.createDocumentFragment();
         let wrapper = document.createElement('div');
@@ -13,6 +15,8 @@ export class BaseComponent {
         props.forEach( property => {
             if (property in this.data) {
                 wrapper.innerHTML = wrapper.innerHTML.replace(`{{${property}}}`, this.data[property]);
+            } else {
+                wrapper.innerHTML = wrapper.innerHTML.replace(`{{${property}}}`, '');
             }
         });
 
@@ -37,6 +41,9 @@ export class BaseComponent {
         });
 
         fragment.append(wrapper.firstChild);
+        // TODO: Need enhancement
+        this.container = fragment.firstChild;
+        this.onInit(fragment.firstChild);
 
         return fragment;
     }

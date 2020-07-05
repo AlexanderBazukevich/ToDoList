@@ -1,7 +1,9 @@
 import { BaseComponent } from "../base/base.component.js";
-import { Control } from "../control/control.component.js"
+import { Control } from "../control/control.component.js";
+import { Icon } from "../icon/icon.component.js";
+
 const template = `<div class="note note_shadowed">
-    <span class="icon icon_note icon_small icon_halo_note"><i class="fas fa-{{group}}"></i></span>
+    [[icon]]
     <div class="note__content">
         <span class="note__title">{{title}}</span>
         <span class="note__description">{{description}}</span>
@@ -17,21 +19,8 @@ export class Note extends BaseComponent {
     constructor(data) {
         super(data);
         this.controlComponent = Control;
+        this.iconComponent = Icon;
     }
-
-    // render() {
-    //     const result = super.render();
-    //     result.firstChild.addEventListener('click', this.onClick)
-    //     return result;
-    // }
-
-    // onInit() {
-    //     this.conainer.addEventListener('click', this.onClick)
-    // }
-
-    // onClick = () => {
-    //     console.log(this)
-    // }
 }
 
 Note.prototype.template = template;

@@ -1,4 +1,6 @@
 import { BaseComponent } from "../base/base.component.js";
+import { TabItem } from "./tab-item.component.js";
+import { TabContent } from "../tabs/tab-content.component.js";
 
 const template = `<div class="tabs">
     [[tabItem as items]]
@@ -19,47 +21,23 @@ export class Tabs extends BaseComponent {
     }
 
     onInit(container) {
-        container.addEventListener('click', this.onClick);
+        container.querySelectorAll(".tabs__select").forEach( element => {
+            element.addEventListener('change', this.onClick);
+        });
+        this.slider = container.querySelector('.tabs__slider');
     }
 
-    onClick = () => {
-        let slider = document.querySelector('.tabs__slider');
-        let index = this.getSelectedTabIndex(event);
-        if (index !== false) {
-            let swipeLength = index * slider.offsetWidth;
-            slider.firstElementChild.style.marginLeft = `-${swipeLength}px`;
+    onClick = (event) => {
+        let index = this.getSelectedTabIndex(event.target);
+        if (index !== -1) {
+            let swipeLength = index * this.slider.offsetWidth;
+            this.slider.firstElementChild.style.marginLeft = `-${swipeLength}px`;
         }
     }
 
-    getSelectedTabIndex(event) {
-        let e = event.target;
-        let tabSelectors = document.querySelectorAll('.tabs__select');
-
-        if (e.className === 'tabs__select') {
-            return Array.prototype.indexOf.call(tabSelectors, e);
-        } else {
-            return false;
-        }
+    getSelectedTabIndex(e) {
+        return Array.prototype.indexOf.call(this.container.children, e.parentElement);
     }
 }
 
 Tabs.prototype.template = template;
-
-class TabItem extends BaseComponent {
-    constructor(data) {
-        super(data)
-    }
-}
-
-TabItem.prototype.template = `<label class="tabs__item">
-    <input class="tabs__select" type="radio" name="tab">
-    <span class="tabs__title">{{title}}</span>
-</label>`
-
-class TabContent extends BaseComponent {
-    constructor(data) {
-        super(data)
-    }
-}
-
-TabContent.prototype.template = `<div class="tabs__content content" data-dom="{{selector}}-todos"></div>`
