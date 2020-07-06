@@ -17,4 +17,4 @@ export class NoteGroup extends BaseComponent {
     }
 }
 
-NoteGroup.prototype.template = template;
+NoteGroup.prototype.template = template

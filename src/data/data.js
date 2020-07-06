@@ -8,7 +8,7 @@ export const data = [
     {
         title: "werg",
         description: "werg er asga aga",
-        date: "2020-06-29T15:59:33.110Z",
+        date: "2020-07-06T15:59:33.110Z",
         icon: "shopping-bag",
     },
     {
@@ -32,7 +32,7 @@ export const data = [
     {
         title: "werhr",
         description: "er we asga aga",
-        date: "2020-06-29T12:59:33.110Z",
+        date: "2020-07-06T12:59:33.110Z",
         icon: "shopping-bag",
     },
 ]
