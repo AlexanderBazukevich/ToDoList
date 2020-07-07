@@ -10,8 +10,14 @@ export class Icon extends BaseComponent {
      * @param { {icon: string, class: string} } data 
      */
     constructor(data) {
+        if (data === undefined) {
+            throw `Arguments not provided`
+        }
         if (!data.class) {
-            throw `Class argument ${data.class}`
+            throw `Icon component: Class argument ${data.class}`
+        }
+        if (!data.icon) {
+            throw `Icon argument ${data.icon}`
         }
         super(data);
     }

@@ -17,24 +17,25 @@ export class Note extends BaseComponent {
      * @param { {title: string, description: string, date: string, icon: string} } data
      */
     constructor(data) {
+        if (!data.description) {
+            throw `Description argument ${data.description}`
+        }
         super(data);
         this.controlComponent = Control;
         this.iconComponent = Icon;
 
-        // TODO: made it works!
-        this.data.icons = [{
+        this.data.icons = {
             icon: this.data.icon,
             class: "icon_note icon_small icon_halo_note"
-        }]
+        }
 
-        this.data.controlData = [{
+        this.data.controlData = {
             type: "checkbox",
-            iconData: [{
+            iconData: {
                 icon: "check-circle",
                 class: "icon_note"
-            }]
-
-        }]
+            }
+        }
     }
 }
 

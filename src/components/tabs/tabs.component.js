@@ -3,16 +3,16 @@ import { TabItem } from "./tab-item.component.js";
 import { TabContent } from "../tabs/tab-content.component.js";
 
 const template = `<div class="tabs">
-    [[tabItem as items]]
+    [[tabItem in items]]
     <div class="tabs__slider">
-        [[tabContent as items]]
+        [[tabContent in items]]
     </div>
 </div>`
 
 export class Tabs extends BaseComponent {
     /**
      * 
-     * @param {items: {title: string, selector: string}[]} data 
+     * @param {items: {title: string, selector: string, checked: string}[]} data 
      */
     constructor(data) {
         super(data);

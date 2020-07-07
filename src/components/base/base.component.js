@@ -22,6 +22,13 @@ export class BaseComponent {
 
         const components = this.grabComponents();
         components.forEach( component => {
+            if (this.isComponentForElement(component)) {
+                const data = this.getComponentDataForElement(component);
+                const cpm = this.getComponentForElement(component);
+                const componentClass = this[`${cpm}Component`];
+                wrapper.innerHTML = wrapper.innerHTML.replace(`[[${component}]]`, new componentClass(data).renderAsString());
+            }
+
             if (this.isComponentForArray(component)) {
                 const data = this.getComponentDataForArray(component);
                 const cpm = this.getComponentForArray(component);
@@ -65,15 +72,29 @@ export class BaseComponent {
     }
 
     isComponentForArray(component) {
+        return component.indexOf("in") !== -1;
+    }
+
+    isComponentForElement(component) {
         return component.indexOf("as") !== -1;
     }
 
     getComponentDataForArray(component) {
-        const dataName = component.split(" as ")[1];
+        const dataName = component.split(" in ")[1];
         return this.data[dataName];
     }
 
     getComponentForArray(component) {
+        const componentName = component.split(" in ")[0];
+        return componentName;
+    }
+
+    getComponentDataForElement(component) {
+        const dataName = component.split(" as ")[1];
+        return this.data[dataName];
+    }
+
+    getComponentForElement(component) {
         const componentName = component.split(" as ")[0];
         return componentName;
     }

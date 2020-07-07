@@ -3,7 +3,7 @@ import { BaseComponent } from "../base/base.component.js";
 
 const template = `<div class="note-group">
         <span class="note-group__title">{{date}}</span>
-        [[note as notes]]
+        [[note in notes]]
     </div>`
 
 export class NoteGroup extends BaseComponent {
