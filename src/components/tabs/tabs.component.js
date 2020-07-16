@@ -1,6 +1,6 @@
 import { BaseComponent } from "../base/base.component.js";
 import { TabItem } from "./tab-item.component.js";
-import { TabContent } from "../tabs/tab-content.component.js";
+import { TabContent } from "./tab-content.component.js";
 
 const template = `<div class="tabs">
     [[tabItem in items]]
@@ -12,7 +12,7 @@ const template = `<div class="tabs">
 export class Tabs extends BaseComponent {
     /**
      * 
-     * @param {items: {title: string, selector: string, checked: string}[]} data 
+     * @param {items: {title: string, selector: string, checked: bool}[]} data 
      */
     constructor(data) {
         super(data);

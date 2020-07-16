@@ -26,14 +26,19 @@ export class Note extends BaseComponent {
 
         this.data.icons = {
             icon: this.data.icon,
-            class: "icon_note icon_small icon_halo_note"
+            class: "icon icon_note icon_small icon_halo_note"
         }
 
         this.data.controlData = {
             type: "checkbox",
+            labelClass: "",
+            fieldClass: "",
+            name: "",
+            placeholder: "",
+            hidden: "hidden",
             iconData: {
                 icon: "check-circle",
-                class: "icon_note"
+                class: "icon icon_note"
             }
         }
     }

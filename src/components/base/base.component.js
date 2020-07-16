@@ -24,6 +24,11 @@ export class BaseComponent {
         components.forEach( component => {
             if (this.isComponentForElement(component)) {
                 const data = this.getComponentDataForElement(component);
+                // console.log(data);
+                if (!data) {
+                    wrapper.innerHTML = wrapper.innerHTML.replace(`[[${component}]]`, '');
+                    return;
+                }
                 const cpm = this.getComponentForElement(component);
                 const componentClass = this[`${cpm}Component`];
                 wrapper.innerHTML = wrapper.innerHTML.replace(`[[${component}]]`, new componentClass(data).renderAsString());
@@ -33,6 +38,7 @@ export class BaseComponent {
                 const data = this.getComponentDataForArray(component);
                 const cpm = this.getComponentForArray(component);
                 let html = "";
+                // console.log(data);
                 data.forEach( value => {
                     const componentClass = this[`${cpm}Component`];
                     html += new componentClass(value).renderAsString();
@@ -84,14 +90,14 @@ export class BaseComponent {
         return this.data[dataName];
     }
 
-    getComponentForArray(component) {
-        const componentName = component.split(" in ")[0];
-        return componentName;
-    }
-
     getComponentDataForElement(component) {
         const dataName = component.split(" as ")[1];
         return this.data[dataName];
+    }
+
+    getComponentForArray(component) {
+        const componentName = component.split(" in ")[0];
+        return componentName;
     }
 
     getComponentForElement(component) {

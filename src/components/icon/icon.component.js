@@ -1,6 +1,6 @@
 import { BaseComponent } from "../base/base.component.js";
 
-const template = `<span class="icon {{class}}">
+const template = `<span class="{{class}}">
     <i class="fas fa-{{icon}}"></i>
 </span>`
 
@@ -17,7 +17,7 @@ export class Icon extends BaseComponent {
             throw `Icon component: Class argument ${data.class}`
         }
         if (!data.icon) {
-            throw `Icon argument ${data.icon}`
+            throw `Icon component: Icon argument ${data.icon}`
         }
         super(data);
     }
