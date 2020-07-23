@@ -2,13 +2,6 @@ import { BaseComponent } from "../base/base.component.js";
 import { TabItem } from "./tab-item.component.js";
 import { TabContent } from "./tab-content.component.js";
 
-const template = `<div class="tabs">
-    [[tabItem in items]]
-    <div class="tabs__slider">
-        [[tabContent in items]]
-    </div>
-</div>`
-
 export class Tabs extends BaseComponent {
     /**
      * 
@@ -16,18 +9,24 @@ export class Tabs extends BaseComponent {
      */
     constructor(data) {
         super(data);
+        this.template = `<div class="tabs">
+            [[tabItem in items]]
+            <div class="tabs__slider">
+                [[tabContent in items]]
+            </div>
+        </div>`
         this.tabItemComponent = TabItem;
         this.tabContentComponent = TabContent;
     }
 
-    onInit(container) {
-        container.querySelectorAll(".tabs__select").forEach( element => {
-            element.addEventListener('change', this.onClick);
+    onInit() {
+        document.querySelectorAll(".tabs__select").forEach( element => {
+            element.addEventListener('change', this.onChange);
         });
-        this.slider = container.querySelector('.tabs__slider');
+        this.slider = document.querySelector('.tabs__slider');
     }
 
-    onClick = (event) => {
+    onChange = (event) => {
         let index = this.getSelectedTabIndex(event.target);
         if (index !== -1) {
             let swipeLength = index * this.slider.offsetWidth;
@@ -36,8 +35,6 @@ export class Tabs extends BaseComponent {
     }
 
     getSelectedTabIndex(e) {
-        return Array.prototype.indexOf.call(this.container.children, e.parentElement);
+        return Array.prototype.indexOf.call(document.querySelector('.tabs').children, e.parentElement);
     }
 }
-
-Tabs.prototype.template = template;

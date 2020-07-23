@@ -1,22 +1,30 @@
 import { Note } from "./../components/note/note.component.js";
 import { NoteGroup } from "./../components/note-group/note-group.component.js";
 import { Tabs } from "./../components/tabs/tabs.component.js";
-import { Content } from "./../components/content/content.component.js"
 
 import { data as NOTES_JSON } from "./../data/data.js";
-import { groupData } from "./../data/group-data.js"
+import { template } from "./todo.page.template.js";
+import { BaseComponent } from "../components/base/base.component.js";
 
-class TodoPage {
-    constructor () {
-        this.todaysNotesContainer;
-        this.upcomingNotesContainer;
-        this.controlGroup;
-        this.tabs = document.querySelector("[data-dom=tabs]");
-        this.content = document.querySelector("[data-dom=content]");
-
+class TodoPage extends BaseComponent {
+    constructor (data) {
+        super(data);
         this.notesGroupsData = this.getTransformedNotesGroups(NOTES_JSON);
         this.todaysNotes = this.getTodaysNotes(NOTES_JSON);
-        this.groupData = groupData;
+        this.data.tabs = {
+            items: [
+                {title: "Today", selector: "today", checked: "checked", notes: this.todaysNotes, template: `<div class="tabs__content content" data-dom="{{selector}}-todos">[[note in notes]]</div>`},
+                {title: "Upcoming", selector: "upcoming", notes: this.notesGroupsData, template: `<div class="tabs__content content" data-dom="{{selector}}-todos">[[noteGroup in notes]]</div>`},
+            ]
+        };
+        this.tabsComponent = Tabs;
+        this.noteComponent = Note;
+        this.noteGroupComponent = NoteGroup;
+        this.template = template;
+
+        setTimeout(() => {
+            document.querySelector('.application').append(this.render())
+        })
     }
 
     getTodaysNotes(data) {
@@ -66,38 +74,6 @@ class TodoPage {
 
         return result;
     }
-
-    renderTodaysNotes() {
-        this.todaysNotesContainer = document.querySelector("[data-dom=today-todos]");
-        this.todaysNotes.forEach( item => {
-            const note = new Note(item);
-            this.todaysNotesContainer.append(note.render());
-        })
-    }
-
-    renderUpcomingNotes() {
-        this.upcomingNotesContainer = document.querySelector("[data-dom=upcoming-todos]");
-        this.notesGroupsData.forEach( (item) => {
-            const noteGroup = new NoteGroup(item);
-            this.upcomingNotesContainer.append(noteGroup.render());
-        })
-    }
-
-    renderTabs() {
-        const tabs = new Tabs({ items: [{title: "Today", selector: "today", checked: "checked"}, {title: "Upcoming", selector: "upcoming"}] });
-        this.tabs.append(tabs.render());
-    }
-
-    renderContent() {
-        const content = new Content(this.groupData);
-        this.content.append(content.render());
-    }
-    //TODO how to remove unnecessary tabs and content containers
-
 }
 
-const todoPage = new TodoPage();
-todoPage.renderTabs();
-todoPage.renderTodaysNotes();
-todoPage.renderUpcomingNotes();
-todoPage.renderContent();
+const todoPage = new TodoPage()

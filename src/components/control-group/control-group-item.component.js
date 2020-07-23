@@ -1,19 +1,16 @@
 import { BaseComponent } from "../base/base.component.js"
 import { Control } from "../control/control.component.js";
 
-const template = `<div class="control-group__item {{class}}">
-    [[control as controlData]]
-</div>`
-
 export class ControlGroupItem extends BaseComponent {
     /**
      * 
-     * @param { {class: string, controlData: {}}} data 
+     * @param { {class: string, control: {}}} data 
      */
     constructor(data){
         super(data);
+        this.template = `<div class="control-group__item {{class}}">
+            [[control]]
+        </div>`
         this.controlComponent = Control;
     }
 }
-
-ControlGroupItem.prototype.template = template;

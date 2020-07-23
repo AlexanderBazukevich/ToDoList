@@ -1,6 +1,6 @@
 export class BaseComponent {
     constructor(data) {
-        this.data = data;
+        this.data = data || {};
     }
 
     onInit() {}
@@ -24,11 +24,6 @@ export class BaseComponent {
         components.forEach( component => {
             if (this.isComponentForElement(component)) {
                 const data = this.getComponentDataForElement(component);
-                // console.log(data);
-                if (!data) {
-                    wrapper.innerHTML = wrapper.innerHTML.replace(`[[${component}]]`, '');
-                    return;
-                }
                 const cpm = this.getComponentForElement(component);
                 const componentClass = this[`${cpm}Component`];
                 wrapper.innerHTML = wrapper.innerHTML.replace(`[[${component}]]`, new componentClass(data).renderAsString());
@@ -38,7 +33,6 @@ export class BaseComponent {
                 const data = this.getComponentDataForArray(component);
                 const cpm = this.getComponentForArray(component);
                 let html = "";
-                // console.log(data);
                 data.forEach( value => {
                     const componentClass = this[`${cpm}Component`];
                     html += new componentClass(value).renderAsString();
@@ -49,14 +43,16 @@ export class BaseComponent {
 
             if (`${component}Component` in this) {
                 const componentClass = this[`${component}Component`];
-                wrapper.innerHTML = wrapper.innerHTML.replace(`[[${component}]]`, new componentClass(this.data).renderAsString());
+                wrapper.innerHTML = wrapper.innerHTML.replace(`[[${component}]]`, new componentClass(this.data[component]).renderAsString());
             }
         });
 
-        fragment.append(wrapper.firstChild);
+        Array.from(wrapper.children).forEach( (item) => {
+            fragment.append(item)
+        } );
         // TODO: Need enhancement
-        this.container = fragment.firstChild;
-        this.onInit(fragment.firstChild);
+        this.container = fragment;
+        setTimeout( () => this.onInit());
 
         return fragment;
     }
